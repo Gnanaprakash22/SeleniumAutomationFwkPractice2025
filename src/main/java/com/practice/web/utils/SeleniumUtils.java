@@ -18,17 +18,18 @@ public final class SeleniumUtils {
 
     private SeleniumUtils(){}
 
-    public static void sendKeys(By by,String value){
+    public static void sendKeys(By by, String value) {
         WebElement element = waitUntilElementToBePresent(by);
         element.sendKeys(value);
+        WaitUtils.waitFor(200L);
     }
 
-    public static void click(By by, WaitType waitType){
-        if(waitType==WaitType.PRESENCE)
+    public static void click(By by, WaitType waitType) {
+        if (waitType == WaitType.PRESENCE)
             click(waitUntilElementToBePresent(by));
-        else if(waitType==WaitType.CLICKABLE)
+        else if (waitType == WaitType.CLICKABLE)
             click(waitUntilElementToBeClickable(by));
-        else if(waitType==WaitType.VISIBLE)
+        else if (waitType == WaitType.VISIBLE)
             click(waitUntilElementToBeVisible(by));
         else
             try {
@@ -36,36 +37,40 @@ public final class SeleniumUtils {
             } catch (InvalidWaitTypeException e) {
                 throw new RuntimeException(e);
             }
-
-
     }
 
-    public static void click(WebElement element){
+    public static void click(WebElement element) {
+        WaitUtils.waitFor(3,"Waiting for click to happen");
         element.click();
     }
 
-    public static WebElement waitUntilElementToBePresent(By by){
+    public static WebElement waitUntilElementToBePresent(By by) {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(ConfigFactory.getConfig().timeout()));
         return wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
-    public static WebElement waitUntilElementToBeClickable(By by){
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(),Duration.ofSeconds(ConfigFactory.getConfig().timeout()));
+    public static WebElement waitUntilElementToBeClickable(By by) {
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(ConfigFactory.getConfig().timeout()));
         return wait.until(ExpectedConditions.elementToBeClickable(by));
     }
 
-    public static WebElement waitUntilElementToBeVisible(By by){
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(),Duration.ofSeconds(ConfigFactory.getConfig().timeout()));
+    public static WebElement waitUntilElementToBeVisible(By by) {
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(ConfigFactory.getConfig().timeout()));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
-    public static void scrollToElementUsingActions(By by){
+    public static void scrollToElementUsingActions(By by) {
         WebDriver driver = DriverManager.getDriver();
         new Actions(driver).scrollToElement(driver.findElement(by));
     }
 
-    public static void scrollToElementUsingJs(By by){
+    public static void scrollToElementUsingJs(By by) {
         WebDriver driver = DriverManager.getDriver();
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", driver.findElement(by));
+    }
+
+    public static String getText(By by){
+        WebElement element = waitUntilElementToBePresent(by);
+        return element.getText();
     }
 }
