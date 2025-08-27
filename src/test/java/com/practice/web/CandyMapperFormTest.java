@@ -8,6 +8,6 @@ public class CandyMapperFormTest extends BaseTest{
     @Test
     public void fillCandyFormMapperTest(){
         CandyMapperFormPage page = new CandyMapperFormPage();
-        page.enterName();
+        page.closePopup().enterName();
     }
 }

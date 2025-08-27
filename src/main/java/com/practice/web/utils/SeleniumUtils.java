@@ -2,6 +2,8 @@ package com.practice.web.utils;
 
 import com.practice.web.config.ConfigFactory;
 import com.practice.web.driver.DriverManager;
+import com.practice.web.enums.WaitType;
+import com.practice.web.exceptions.InvalidWaitTypeException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -21,8 +23,21 @@ public final class SeleniumUtils {
         element.sendKeys(value);
     }
 
-    public static void click(By by){
-        click(waitUntilElementToBePresent(by));
+    public static void click(By by, WaitType waitType){
+        if(waitType==WaitType.PRESENCE)
+            click(waitUntilElementToBePresent(by));
+        else if(waitType==WaitType.CLICKABLE)
+            click(waitUntilElementToBeClickable(by));
+        else if(waitType==WaitType.VISIBLE)
+            click(waitUntilElementToBeVisible(by));
+        else
+            try {
+                throw new InvalidWaitTypeException("Invalid Wait Type");
+            } catch (InvalidWaitTypeException e) {
+                throw new RuntimeException(e);
+            }
+
+
     }
 
     public static void click(WebElement element){
@@ -32,6 +47,16 @@ public final class SeleniumUtils {
     public static WebElement waitUntilElementToBePresent(By by){
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(ConfigFactory.getConfig().timeout()));
         return wait.until(ExpectedConditions.presenceOfElementLocated(by));
+    }
+
+    public static WebElement waitUntilElementToBeClickable(By by){
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(),Duration.ofSeconds(ConfigFactory.getConfig().timeout()));
+        return wait.until(ExpectedConditions.elementToBeClickable(by));
+    }
+
+    public static WebElement waitUntilElementToBeVisible(By by){
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(),Duration.ofSeconds(ConfigFactory.getConfig().timeout()));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     public static void scrollToElementUsingActions(By by){
