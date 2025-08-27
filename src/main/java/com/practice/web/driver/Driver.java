@@ -10,8 +10,8 @@ public final class Driver {
     private Driver() {
     }
 
-    public static void initDriver() {
-        WebDriver driver = DriverFactory.getDriver();
+    public static void initDriver(String browser) {
+        WebDriver driver = DriverFactory.getDriver(browser);
         DriverManager.setDriver(driver);
         long timeOut = ConfigFactory.getConfig().timeout();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeOut));

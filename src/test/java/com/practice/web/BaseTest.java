@@ -1,16 +1,14 @@
 package com.practice.web;
 
 import com.practice.web.driver.Driver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 
 public class BaseTest {
 
+    @Parameters("browser")
     @BeforeMethod
-    public void setUp(){
-        Driver.initDriver();
+    public void setUp(String browser){
+        Driver.initDriver(browser);
     }
 
     @AfterMethod

@@ -4,10 +4,7 @@ import com.practice.web.config.ConfigFactory;
 import com.practice.web.driver.DriverManager;
 import com.practice.web.enums.WaitType;
 import com.practice.web.exceptions.InvalidWaitTypeException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -19,9 +16,9 @@ public final class SeleniumUtils {
     private SeleniumUtils(){}
 
     public static void sendKeys(By by, String value) {
+        WaitUtils.waitFor(200L);
         WebElement element = waitUntilElementToBePresent(by);
         element.sendKeys(value);
-        WaitUtils.waitFor(200L);
     }
 
     public static void click(By by, WaitType waitType) {
@@ -40,23 +37,23 @@ public final class SeleniumUtils {
     }
 
     public static void click(WebElement element) {
-        WaitUtils.waitFor(3,"Waiting for click to happen");
+        WaitUtils.waitFor(2,"Waiting for click to happen");
         element.click();
     }
 
     public static WebElement waitUntilElementToBePresent(By by) {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(ConfigFactory.getConfig().timeout()));
-        return wait.until(ExpectedConditions.presenceOfElementLocated(by));
+        return wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
     public static WebElement waitUntilElementToBeClickable(By by) {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(ConfigFactory.getConfig().timeout()));
-        return wait.until(ExpectedConditions.elementToBeClickable(by));
+        return wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.elementToBeClickable(by));
     }
 
     public static WebElement waitUntilElementToBeVisible(By by) {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(ConfigFactory.getConfig().timeout()));
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        return wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     public static void scrollToElementUsingActions(By by) {
