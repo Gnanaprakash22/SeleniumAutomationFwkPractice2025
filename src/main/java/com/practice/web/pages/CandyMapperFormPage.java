@@ -25,34 +25,34 @@ public class CandyMapperFormPage {
         return this;
     }
 
-    public CandyMapperFormPage enterFirstName(){
+    public CandyMapperFormPage enterFirstName(String firstName){
         scrollToElementUsingActions(FIRST_NAME);
         LoggerUtils.browserAction(Actions.SCROLL.name(), Elements.FIRST_NAME.name());
-        sendKeys(FIRST_NAME,"Tom");
+        sendKeys(FIRST_NAME,firstName);
         LoggerUtils.browserAction(Actions.SENDKEYS.name(), Elements.FIRST_NAME.name());
         return this;
     }
 
-    public CandyMapperFormPage enterLastName(){
-        sendKeys(LAST_NAME,"Hanks");
+    public CandyMapperFormPage enterLastName(String lastName){
+        sendKeys(LAST_NAME,lastName);
         LoggerUtils.browserAction(Actions.SENDKEYS.name(), Elements.LAST_NAME.name());
         return this;
     }
 
-    public CandyMapperFormPage enterEmail(){
-        sendKeys(EMAIL,"tomhanks@yahoo.com");
+    public CandyMapperFormPage enterEmail(String email){
+        sendKeys(EMAIL,email);
         LoggerUtils.browserAction(Actions.SENDKEYS.name(), Elements.EMAIL.name());
         return this;
     }
 
-    public CandyMapperFormPage enterPhoneNumber(){
-        sendKeys(PHONE_NUMBER,"1234567890");
+    public CandyMapperFormPage enterPhoneNumber(String phoneNumber){
+        sendKeys(PHONE_NUMBER,phoneNumber);
         LoggerUtils.browserAction(Actions.SENDKEYS.name(), Elements.PHONE_NUMBER.name());
         return this;
     }
 
-    public CandyMapperFormPage enterMessage(){
-        sendKeys(MESSAGE,"Good User Experience");
+    public CandyMapperFormPage enterMessage(String message){
+        sendKeys(MESSAGE,message);
         LoggerUtils.browserAction(Actions.SENDKEYS.name(), Elements.MESSAGE.name());
         return this;
     }
