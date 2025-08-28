@@ -2,6 +2,7 @@ package com.practice.web.driver;
 
 import com.practice.web.enums.Browser;
 import com.practice.web.exceptions.BrowserNotImplementedException;
+import com.practice.web.utils.LoggerUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -11,14 +12,19 @@ public final class DriverFactory {
     private DriverFactory(){}
 
     public static WebDriver getDriver(String browser){
-        if(browser.equalsIgnoreCase(Browser.CHROME.name()))
+        if(browser.equalsIgnoreCase(Browser.CHROME.name())) {
+            LoggerUtils.info("Chrome driver is initialized");
             return new ChromeDriver();
-        else if(browser.equalsIgnoreCase(Browser.FIREFOX.name()))
+        }
+        else if(browser.equalsIgnoreCase(Browser.FIREFOX.name())) {
+            LoggerUtils.info("FireFox driver is initialized");
             return new FirefoxDriver();
+        }
         else
             try {
                 throw new BrowserNotImplementedException("Driver Not Yet Implemented for "+browser);
             } catch (BrowserNotImplementedException e) {
+                LoggerUtils.error(e.getMessage());
                 throw new RuntimeException(e);
             }
 
