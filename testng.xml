@@ -3,6 +3,7 @@
     <listeners>
         <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/>
         <listener class-name="com.practice.web.listener.TestListener"/>
+        <listener class-name="com.practice.web.retry.RetryTransformer"></listener>
     </listeners>
     <test name="Chrome Tests">
         <parameter name="browser" value="chrome"/>
