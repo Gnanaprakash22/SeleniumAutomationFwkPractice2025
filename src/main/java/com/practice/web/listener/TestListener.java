@@ -1,10 +1,14 @@
 package com.practice.web.listener;
 
 
+import com.practice.web.driver.DriverManager;
+import com.practice.web.utils.ArtifactUtils;
 import com.practice.web.utils.LoggerUtils;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+
+import java.io.File;
 
 public class TestListener implements ITestListener {
 
@@ -12,12 +16,15 @@ public class TestListener implements ITestListener {
     }
 
     public void onTestSuccess(ITestResult result) {
-        LoggerUtils.info("Test Passed Successfully !!! " + result.getMethod().getMethodName());
+        String testName = result.getMethod().getMethodName();
+        LoggerUtils.info("Test Passed Successfully !!! " + testName);
+        LoggerUtils.attachScreenShot(testName, new File(ArtifactUtils.saveScreenShot(DriverManager.getDriver(),testName)));
     }
 
     public void onTestFailure(ITestResult result) {
-        LoggerUtils.info("Test failed: " + result.getMethod().getMethodName());
+        String testName = result.getMethod().getMethodName();
         LoggerUtils.error("Failure reason: " + result.getThrowable().getMessage());
+        LoggerUtils.attachScreenShot(testName, new File(ArtifactUtils.saveScreenShot(DriverManager.getDriver(),testName)));
     }
 
     public void onTestSkipped(ITestResult result) {

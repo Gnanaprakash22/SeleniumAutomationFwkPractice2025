@@ -3,6 +3,8 @@ package com.practice.web.utils;
 import com.practice.web.loggers.ILogger;
 import com.practice.web.loggers.ReportPortalLogger;
 
+import java.io.File;
+
 public final class LoggerUtils {
 
     private static final ILogger log = new ReportPortalLogger();
@@ -33,5 +35,11 @@ public final class LoggerUtils {
         log.fail(message);
     }
 
+    public static void attachScreenShot(String testName , File file){
+        log.attachScreenshot(testName,file);
+    }
 
+    public static void browserAction(String action, String element){
+        log.browserAction(action,element);
+    }
 }

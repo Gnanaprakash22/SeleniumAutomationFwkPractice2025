@@ -1,5 +1,7 @@
 package com.practice.web.pages;
 
+import com.practice.web.enums.Actions;
+import com.practice.web.enums.Elements;
 import com.practice.web.enums.WaitType;
 import com.practice.web.utils.LoggerUtils;
 import org.openqa.selenium.By;
@@ -18,52 +20,53 @@ public class CandyMapperFormPage {
     private static final By THANKYOU_MSG = By.cssSelector("div[data-aid='CONTACT_FORM_SUBMIT_SUCCESS_MESSAGE'] span");
 
     public CandyMapperFormPage closePopup(){
-        LoggerUtils.info("Closing popup");
         click(CLOSE_ICON, WaitType.CLICKABLE);
+        LoggerUtils.browserAction(Actions.CLICK.name(), Elements.CLOSE_BUTTON.name());
         return this;
     }
 
     public CandyMapperFormPage enterFirstName(){
-        LoggerUtils.info("Scrolling to First Name");
         scrollToElementUsingActions(FIRST_NAME);
-        LoggerUtils.info("Entering First Name");
+        LoggerUtils.browserAction(Actions.SCROLL.name(), Elements.FIRST_NAME.name());
         sendKeys(FIRST_NAME,"Tom");
+        LoggerUtils.browserAction(Actions.SENDKEYS.name(), Elements.FIRST_NAME.name());
         return this;
     }
 
     public CandyMapperFormPage enterLastName(){
-        LoggerUtils.info("Entering First Name");
         sendKeys(LAST_NAME,"Hanks");
+        LoggerUtils.browserAction(Actions.SENDKEYS.name(), Elements.LAST_NAME.name());
         return this;
     }
 
     public CandyMapperFormPage enterEmail(){
-        LoggerUtils.info("Entering Email");
         sendKeys(EMAIL,"tomhanks@yahoo.com");
+        LoggerUtils.browserAction(Actions.SENDKEYS.name(), Elements.EMAIL.name());
         return this;
     }
 
     public CandyMapperFormPage enterPhoneNumber(){
-        LoggerUtils.info("Entering Phone number");
         sendKeys(PHONE_NUMBER,"1234567890");
+        LoggerUtils.browserAction(Actions.SENDKEYS.name(), Elements.PHONE_NUMBER.name());
         return this;
     }
 
     public CandyMapperFormPage enterMessage(){
-        LoggerUtils.info("Entering Message");
         sendKeys(MESSAGE,"Good User Experience");
+        LoggerUtils.browserAction(Actions.SENDKEYS.name(), Elements.MESSAGE.name());
         return this;
     }
 
     public CandyMapperFormPage submitForm(){
-        LoggerUtils.info("Submitting the form");
         scrollToElementUsingActions(SUBMIT_BUTTON);
+        LoggerUtils.browserAction(Actions.SCROLL.name(), Elements.SUBMIT_BUTTON.name());
         click(SUBMIT_BUTTON,WaitType.CLICKABLE);
+        LoggerUtils.browserAction(Actions.CLICK.name(), Elements.SUBMIT_BUTTON.name());
         return this;
     }
 
     public String getThankYouMsg(){
-        LoggerUtils.info("Getting thank you message");
+        LoggerUtils.browserAction(Actions.GETTEXT.name(), Elements.THANKYOU_MSG.name());
         return getText(THANKYOU_MSG);
     }
 

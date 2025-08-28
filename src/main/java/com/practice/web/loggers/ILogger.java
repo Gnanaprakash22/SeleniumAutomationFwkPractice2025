@@ -1,5 +1,7 @@
 package com.practice.web.loggers;
 
+import java.io.File;
+
 public interface ILogger {
     
     /**
@@ -59,10 +61,10 @@ public interface ILogger {
     void assertion(String description, boolean result);
     
     /**
-     * Attach a screenshot with message
-     * @param message the message to accompany the screenshot
+     * Attach a screenshot with testName
+     * @param testName the testName to accompany the screenshot file
      */
-    void attachScreenshot(String message);
+    void attachScreenshot(String testName, File file);
     
     /**
      * Attach a file with content

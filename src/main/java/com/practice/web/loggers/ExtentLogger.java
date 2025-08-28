@@ -1,5 +1,7 @@
 package com.practice.web.loggers;
 
+import java.io.File;
+
 public class ExtentLogger implements ILogger{
     @Override
     public void info(String message) {
@@ -47,7 +49,7 @@ public class ExtentLogger implements ILogger{
     }
 
     @Override
-    public void attachScreenshot(String message) {
+    public void attachScreenshot(String testName, File file) {
 
     }
 
