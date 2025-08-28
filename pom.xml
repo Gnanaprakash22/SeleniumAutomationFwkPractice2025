@@ -27,6 +27,9 @@
                         <version>3.5.3</version>
                         <configuration>
                             <suiteXmlFiles>testng.xml</suiteXmlFiles>
+                            <systemPropertyVariables>
+                                <rp.launch>selenium-tests-${maven.build.timestamp}</rp.launch>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>
