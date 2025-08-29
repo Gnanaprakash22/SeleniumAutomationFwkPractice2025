@@ -8,5 +8,10 @@ public enum Elements {
     PHONE_NUMBER,
     MESSAGE,
     SUBMIT_BUTTON,
-    THANKYOU_MSG
+    THANKYOU_MSG,
+    MENU_ICON,
+    MENU_ITEMS,
+    PASSWORD,
+    SIGN_IN,
+    FORM_ERROR
 }

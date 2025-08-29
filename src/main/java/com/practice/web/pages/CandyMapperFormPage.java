@@ -1,10 +1,15 @@
 package com.practice.web.pages;
 
+import com.practice.web.driver.DriverManager;
 import com.practice.web.enums.Actions;
 import com.practice.web.enums.Elements;
 import com.practice.web.enums.WaitType;
 import com.practice.web.utils.LoggerUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 import static com.practice.web.utils.SeleniumUtils.*;
 
@@ -18,6 +23,12 @@ public class CandyMapperFormPage {
     private static final By CLOSE_ICON = By.cssSelector("#popup-widget307423-close-icon");
     private static final By SUBMIT_BUTTON = By.cssSelector("button[type='submit']");
     private static final By THANKYOU_MSG = By.cssSelector("div[data-aid='CONTACT_FORM_SUBMIT_SUCCESS_MESSAGE'] span");
+    private static final By MENU_ICON = By.cssSelector("svg[data-ux='UtilitiesMenuIcon']");
+    private static final By MENU_ITEMS = By.xpath("//ul[contains(@id,'membershipId-loggedout')]/li[@data-ux='ListItem' and @role='menuitem']");
+
+    public static CandyMapperFormPage getInstance(){
+        return new CandyMapperFormPage();
+    }
 
     public CandyMapperFormPage closePopup(){
         click(CLOSE_ICON, WaitType.CLICKABLE);
@@ -68,6 +79,16 @@ public class CandyMapperFormPage {
     public String getThankYouMsg(){
         LoggerUtils.browserAction(Actions.GETTEXT.name(), Elements.THANKYOU_MSG.name());
         return getText(THANKYOU_MSG);
+    }
+
+    public CandyMapperSignInPage clickOnSignInOption(){
+        click(MENU_ICON,WaitType.CLICKABLE);
+        LoggerUtils.browserAction(Actions.CLICK.name(), Elements.MENU_ICON.name());
+        WebDriver driver = DriverManager.getDriver();
+        List<WebElement>elements = driver.findElements(MENU_ITEMS);
+        LoggerUtils.browserAction(Actions.CLICK.name(), Elements.MENU_ITEMS.name());
+        click(elements.getFirst());
+        return CandyMapperSignInPage.getInstance();
     }
 
 }
