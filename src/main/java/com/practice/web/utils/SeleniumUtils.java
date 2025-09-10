@@ -58,6 +58,7 @@ public final class SeleniumUtils {
 
     public static void scrollToElementUsingActions(By by) {
         WebDriver driver = DriverManager.getDriver();
+        scrollToElementUsingJs(by);
         new Actions(driver).scrollToElement(driver.findElement(by));
     }
 
