@@ -24,7 +24,7 @@ public class CandyMapperFormPage {
     private static final By SUBMIT_BUTTON = By.cssSelector("button[type='submit']");
     private static final By THANKYOU_MSG = By.cssSelector("div[data-aid='CONTACT_FORM_SUBMIT_SUCCESS_MESSAGE'] span");
     private static final By MENU_ICON = By.cssSelector("svg[data-ux='UtilitiesMenuIcon']");
-    private static final By MENU_ITEMS = By.xpath("//ul[contains(@id,'membershipId-loggedout')]/li[@data-ux='ListItem' and @role='menuitem']");
+    private static final By MENU_ITEMS = By.xpath("//ul[contains(@id,'membershipId-loggedout')]/li[@data-ux='ListItem' and @role='menuitem']/a");
 
     public static CandyMapperFormPage getInstance(){
         return new CandyMapperFormPage();

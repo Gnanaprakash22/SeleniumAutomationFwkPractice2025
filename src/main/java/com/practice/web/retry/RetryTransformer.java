@@ -1,7 +1,6 @@
 package com.practice.web.retry;
 
 import org.testng.IAnnotationTransformer;
-import org.testng.annotations.IFactoryAnnotation;
 import org.testng.annotations.ITestAnnotation;
 
 import java.lang.reflect.Constructor;

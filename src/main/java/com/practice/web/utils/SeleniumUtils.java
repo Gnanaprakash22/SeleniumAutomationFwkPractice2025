@@ -70,4 +70,9 @@ public final class SeleniumUtils {
         WebElement element = waitUntilElementToBePresent(by);
         return element.getText();
     }
+
+    public static void clickUsingActions(WebElement element){
+        WebDriver driver = DriverManager.getDriver();
+        new Actions(driver).click(element).build().perform();
+    }
 }
