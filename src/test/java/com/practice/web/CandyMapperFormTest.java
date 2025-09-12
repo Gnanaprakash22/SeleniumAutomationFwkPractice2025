@@ -1,6 +1,6 @@
 package com.practice.web;
 
-import com.practice.web.constants.Constants;
+import com.practice.web.constants.PageConstants;
 import com.practice.web.dataproviders.LoginDataProvider;
 import com.practice.web.dataproviders.UserDataProvider;
 import com.practice.web.pages.CandyMapperFormPage;
@@ -20,7 +20,7 @@ public class CandyMapperFormTest extends BaseTest {
                 .enterPhoneNumber(userData.get("phoneNumber")).enterMessage(userData.get("message"))
                 .submitForm();
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(page.getThankYouMsg(), Constants.THANKYOU_MSG);
+        softAssert.assertEquals(page.getThankYouMsg(), PageConstants.THANKYOU_MSG);
         softAssert.assertAll();
     }
 
@@ -29,7 +29,7 @@ public class CandyMapperFormTest extends BaseTest {
         CandyMapperFormPage page = CandyMapperFormPage.getInstance();
         page.closePopup().clickOnSignInOption().login(loginData.get("email"),loginData.get("password"));
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(CandyMapperSignInPage.getInstance().getFormErrorText(), Constants.SIGN_IN_ERROR);
+        softAssert.assertEquals(CandyMapperSignInPage.getInstance().getFormErrorText(), PageConstants.SIGN_IN_ERROR);
         softAssert.assertAll();
     }
 }

@@ -46,7 +46,10 @@ public final class DriverFactory {
         chromeOptions.addArguments("--disable-background-networking");
         chromeOptions.addArguments("--disable-background-timer-throttling");
         chromeOptions.addArguments("--disable-renderer-backgrounding");
-        chromeOptions.addArguments("--headless");
+        boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless"));
+        if(isHeadless) {
+            chromeOptions.addArguments("--headless");
+        }
         chromeOptions.addArguments("--window-size=1920,1080");
         chromeOptions.addArguments("--start-maximized");
 
@@ -59,7 +62,10 @@ public final class DriverFactory {
         firefoxOptions.addArguments("--disable-gpu");
         firefoxOptions.addArguments("--disable-extensions");
         firefoxOptions.addArguments("--disable-plugins");
-        firefoxOptions.addArguments("--headless");
+        boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless"));
+        if(isHeadless){
+            firefoxOptions.addArguments("--headless");
+        }
         firefoxOptions.addArguments("--width=1920");
         firefoxOptions.addArguments("--height=1080");
 
