@@ -1,4 +1,4 @@
-# Selenium Automation Framework 2025
+# Selenium Automation Framework
 
 A comprehensive, enterprise-grade test automation framework built with Selenium WebDriver, TestNG, and Maven. Features dual reporting capabilities, cross-browser testing, and flexible configuration management.
 
