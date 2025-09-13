@@ -77,8 +77,8 @@ pipeline {
                     if (fileExists(indexHtmlPath)) {
                         echo "✅ Extent Report found at ${indexHtmlPath}. Archiving and publishing..."
 
-                        // Archive for download (optional)
-                        archiveArtifacts artifacts: indexHtmlPath, allowEmptyArchive: false
+                        // Archive for download (optional) - include spark directory
+                        archiveArtifacts artifacts: "${indexHtmlPath}, spark/**/*", allowEmptyArchive: false
 
                         // ✅ PUBLISH TO RENDER IN JENKINS UI — THIS IS THE FIX
                         publishHTML([
