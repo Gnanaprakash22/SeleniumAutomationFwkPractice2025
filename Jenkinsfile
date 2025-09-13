@@ -73,7 +73,7 @@ pipeline {
                 if (params.REPORT_TYPE == 'EXTENT_REPORT') {
                     if (fileExists(indexHtmlPath)) {
                         echo "Archiving Extent Report: ${indexHtmlPath}"
-                        archiveArtifacts artifacts: indexHtmlPath, allowEmptyArchive: false
+                        archiveArtifacts artifacts: 'target/artifacts/**', allowEmptyArchive: false
                         publishHTML([
                                target: [
                                reportDir: '.',          // Look in workspace root
