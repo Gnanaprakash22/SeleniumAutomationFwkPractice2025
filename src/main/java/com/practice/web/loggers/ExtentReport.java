@@ -15,6 +15,12 @@ public class ExtentReport {
     public static void initReports(){
         extentReports = new ExtentReports();
         ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter(FrameworkConstants.getReportPath());
+        
+        // Configure for offline/self-contained mode to avoid Jenkins CSP issues
+        extentSparkReporter.config().setOfflineMode(true);
+        extentSparkReporter.config().setReportName("Selenium Automation Test Report");
+        extentSparkReporter.config().setDocumentTitle("Test Execution Report");
+        
         extentReports.attachReporter(extentSparkReporter);
     }
 

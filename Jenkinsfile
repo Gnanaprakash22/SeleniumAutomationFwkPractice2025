@@ -82,12 +82,15 @@ pipeline {
 
                         // ✅ PUBLISH TO RENDER IN JENKINS UI — THIS IS THE FIX
                         publishHTML([
-                            target: [
-                                reportDir: '.',           // Root of workspace
-                                reportFiles: indexHtmlPath,
-                                reportName: 'Extent Report',
-                                keepAll: true             // Keep across builds
-                            ]
+                            allowMissing: false,
+                            alwaysLinkToLastBuild: true,
+                            keepAll: true,
+                            reportDir: '.',
+                            reportFiles: indexHtmlPath,
+                            reportName: 'Extent Report',
+                            reportTitles: '',
+                            escapeUnderscores: false,
+                            includes: '**/*'
                         ])
                         echo "🎉 Extent Report published successfully!"
 
