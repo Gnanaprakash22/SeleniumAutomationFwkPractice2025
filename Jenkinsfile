@@ -48,6 +48,9 @@ pipeline {
 
                     echo "Executing: ${mvnCmd}"
                     sh "set -e; ${mvnCmd}"
+
+                    // 🔍 DEBUG: Confirm index.html exists in root
+                    sh 'ls -la index.html || echo "❌ index.html NOT found in workspace root!"'
                 }
             }
 
@@ -67,31 +70,37 @@ pipeline {
             echo "Build failed: ${env.BRANCH_NAME}"
         }
         always {
-            // Archive index.html only if it exists and REPORT_TYPE is EXTENT_REPORT
             script {
                 def indexHtmlPath = 'index.html'
+
                 if (params.REPORT_TYPE == 'EXTENT_REPORT') {
                     if (fileExists(indexHtmlPath)) {
-                        echo "Archiving Extent Report: ${indexHtmlPath}"
+                        echo "✅ Extent Report found at ${indexHtmlPath}. Archiving and publishing..."
+
+                        // Archive for download (optional)
                         archiveArtifacts artifacts: indexHtmlPath, allowEmptyArchive: false
+
+                        // ✅ PUBLISH TO RENDER IN JENKINS UI — THIS IS THE FIX
                         publishHTML([
-                               target: [
-                               reportDir: '.',          // Look in workspace root
-                               reportFiles: indexHtmlPath,
-                               reportName: 'Extent Report',
-                               keepAll: true           // Keep all reports across builds
-                               ]
-                              ])
+                            target: [
+                                reportDir: '.',           // Root of workspace
+                                reportFiles: indexHtmlPath,
+                                reportName: 'Extent Report',
+                                keepAll: true             // Keep across builds
+                            ]
+                        ])
+                        echo "🎉 Extent Report published successfully!"
+
                     } else {
-                        echo "WARNING: Extent Report index.html not found at ${indexHtmlPath}. Skipping archive."
+                        echo "⚠️ WARNING: Extent Report index.html NOT found at ${indexHtmlPath}. Skipping."
                     }
                 } else {
-                    echo "REPORT_TYPE=${params.REPORT_TYPE} → Not archiving index.html"
+                    echo "REPORT_TYPE=${params.REPORT_TYPE} → Not archiving or publishing index.html"
                 }
-            }
 
-            // Clean workspace after every build
-            cleanWs()
+                // Clean workspace — always
+                cleanWs()
+            }
         }
     }
 }
