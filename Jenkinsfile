@@ -2,17 +2,24 @@ pipeline {
     agent any
 
     stages {
-        stage('Test Docker') {
+        stage('Test Java & Maven') {
             steps {
                 script {
-                    // ✅ This uses DOCKER_HOST=tcp://dind:2375 automatically!
-                    // NO docker binary needed. Uses Docker API directly.
-                    withDockerContainer(image: 'busybox') {
-                        sh 'echo "✅ SUCCESS! Inside Docker container via API!"'
-                        sh 'ls -la'
+                    // Run inside a clean Maven + Java 21 container
+                    withDockerContainer(image: 'maven:3.9.6-eclipse-temurin-21') {
+                        sh 'java -version'
+                        sh 'mvn -v'
+                        sh 'echo "✅ SUCCESS! Java and Maven are running inside Docker!"'
                     }
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            echo "Build finished!"
+            cleanWs()
         }
     }
 }
