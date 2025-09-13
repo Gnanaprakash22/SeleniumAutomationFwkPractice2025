@@ -73,13 +73,13 @@ pipeline {
                 if (params.REPORT_TYPE == 'EXTENT_REPORT') {
                     if (fileExists(indexHtmlPath)) {
                         echo "Archiving Extent Report: ${indexHtmlPath}"
-                        archiveArtifacts artifacts: 'target/artifacts/**', allowEmptyArchive: false
+                        archiveArtifacts artifacts: 'target/artifacts/index.html', allowEmptyArchive: false
                         publishHTML([
                                target: [
-                               reportDir: '.',          // Look in workspace root
-                               reportFiles: indexHtmlPath,
+                               reportDir: 'target/artifacts',
+                               reportFiles: 'index.html',
                                reportName: 'Extent Report',
-                               keepAll: true           // Keep all reports across builds
+                               keepAll: true
                                ]
                               ])
                     } else {
