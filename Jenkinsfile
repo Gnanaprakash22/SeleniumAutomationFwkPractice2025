@@ -5,13 +5,12 @@ pipeline {
         stage('Test Docker') {
             steps {
                 script {
-                    // This works on Docker Desktop without installing docker CLI!
-                    def dockerInfo = docker.image('busybox').inside('-v /var/run/docker.sock:/var/run/docker.sock') {
-                        sh 'which docker || echo "docker not found"'
-                        sh 'docker --version'
-                        sh 'docker ps -q'
+                    // ✅ This uses DOCKER_HOST=tcp://dind:2375 automatically!
+                    // NO docker binary needed. Uses Docker API directly.
+                    withDockerContainer(image: 'busybox') {
+                        sh 'echo "✅ SUCCESS! Inside Docker container via API!"'
+                        sh 'ls -la'
                     }
-                    echo "Docker version: ${dockerInfo}"
                 }
             }
         }
