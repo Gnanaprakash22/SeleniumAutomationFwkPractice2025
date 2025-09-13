@@ -87,3 +87,7 @@ pipeline {
             echo "Build failed: ${env.BRANCH_NAME}"
         }
         always {
+            cleanWs()
+        }
+    }
+}
