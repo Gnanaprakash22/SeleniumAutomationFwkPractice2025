@@ -69,7 +69,7 @@ pipeline {
         always {
             // Archive index.html only if it exists and REPORT_TYPE is EXTENT_REPORT
             script {
-                def indexHtmlPath = 'index.html'
+                def indexHtmlPath = 'target/artifacts/index.html'
                 if (params.REPORT_TYPE == 'EXTENT_REPORT') {
                     if (fileExists(indexHtmlPath)) {
                         echo "Archiving Extent Report: ${indexHtmlPath}"

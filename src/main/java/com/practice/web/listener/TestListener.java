@@ -10,7 +10,6 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 import java.io.File;
-import java.util.Arrays;
 
 public class TestListener implements ITestListener {
 
