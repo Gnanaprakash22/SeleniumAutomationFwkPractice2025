@@ -68,12 +68,8 @@ public class ExtentLogger implements ILogger{
     @Override
     public void attachScreenshot(String testName, File file) {
         ExtentTest extentTest = ExtentManager.getExtentTest();
-        if(extentTest != null && file != null && file.exists()){
-            try {
-                extentTest.addScreenCaptureFromPath(file.getAbsolutePath(), testName);
-            } catch (Exception e) {
-                extentTest.info("Failed to attach screenshot: " + e.getMessage());
-            }
+        if(extentTest != null){
+            extentTest.info(testName, attachScreenshot());
         }
     }
 
