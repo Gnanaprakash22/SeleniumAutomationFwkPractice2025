@@ -74,6 +74,14 @@ pipeline {
                     if (fileExists(indexHtmlPath)) {
                         echo "Archiving Extent Report: ${indexHtmlPath}"
                         archiveArtifacts artifacts: indexHtmlPath, allowEmptyArchive: false
+                        publishHTML([
+                               target: [
+                               reportDir: '.',          // Look in workspace root
+                               reportFiles: indexHtmlPath,
+                               reportName: 'Extent Report',
+                               keepAll: true           // Keep all reports across builds
+                               ]
+                              ])
                     } else {
                         echo "WARNING: Extent Report index.html not found at ${indexHtmlPath}. Skipping archive."
                     }
