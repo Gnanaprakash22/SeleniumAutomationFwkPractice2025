@@ -5,11 +5,11 @@ pipeline {
         stage('Test Java & Maven') {
             steps {
                 script {
-                    // Run inside a clean Maven + Java 21 container
+                    // ✅ This WILL WORK now — because DOCKER_HOST is set!
                     withDockerContainer(image: 'maven:3.9.6-eclipse-temurin-21') {
                         sh 'java -version'
                         sh 'mvn -v'
-                        sh 'echo "✅ SUCCESS! Java and Maven are running inside Docker!"'
+                        sh 'echo "✅ SUCCESS! Running Maven + Java 21 inside Docker!"'
                     }
                 }
             }
