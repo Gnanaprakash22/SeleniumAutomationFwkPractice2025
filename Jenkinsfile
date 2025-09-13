@@ -81,18 +81,25 @@ pipeline {
                         archiveArtifacts artifacts: "${indexHtmlPath}, spark/**/*", allowEmptyArchive: false
 
                         // ✅ PUBLISH TO RENDER IN JENKINS UI — THIS IS THE FIX
+                        script {
+                            // Set Jenkins system property to allow JavaScript (if you have admin access)
+                            try {
+                                System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
+                            } catch (Exception e) {
+                                echo "Could not set CSP property (requires admin access): ${e.message}"
+                            }
+                        }
+                        
                         publishHTML([
                             allowMissing: false,
                             alwaysLinkToLastBuild: true,
                             keepAll: true,
                             reportDir: '.',
-                            reportFiles: indexHtmlPath,
+                            reportFiles: 'jenkins-report-wrapper.html',
                             reportName: 'Extent Report',
                             reportTitles: 'Test Execution Report',
                             escapeUnderscores: false,
-                            includes: '**/*',
-                            useWrapperFileDirectly: true,
-                            allowMissing: false
+                            includes: '**/*'
                         ])
                         echo "🎉 Extent Report published successfully!"
 
