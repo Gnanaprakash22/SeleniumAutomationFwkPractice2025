@@ -18,7 +18,10 @@ public class ExtentLogger implements ILogger{
 
     @Override
     public void error(String message) {
-
+        ExtentTest extentTest = ExtentManager.getExtentTest();
+        if(extentTest != null){
+            extentTest.fail(message);
+        }
     }
 
     @Override
@@ -31,7 +34,10 @@ public class ExtentLogger implements ILogger{
 
     @Override
     public void debug(String message) {
-
+        ExtentTest extentTest = ExtentManager.getExtentTest();
+        if(extentTest != null){
+            extentTest.info("<b>DEBUG:</b> " + message);
+        }
     }
 
     @Override
@@ -61,7 +67,14 @@ public class ExtentLogger implements ILogger{
 
     @Override
     public void attachScreenshot(String testName, File file) {
-
+        ExtentTest extentTest = ExtentManager.getExtentTest();
+        if(extentTest != null && file != null && file.exists()){
+            try {
+                extentTest.addScreenCaptureFromPath(file.getAbsolutePath(), testName);
+            } catch (Exception e) {
+                extentTest.info("Failed to attach screenshot: " + e.getMessage());
+            }
+        }
     }
 
     @Override
@@ -100,6 +113,9 @@ public class ExtentLogger implements ILogger{
 
     @Override
     public void skip(String message) {
-
+        ExtentTest extentTest = ExtentManager.getExtentTest();
+        if(extentTest != null){
+            extentTest.skip(message);
+        }
     }
 }

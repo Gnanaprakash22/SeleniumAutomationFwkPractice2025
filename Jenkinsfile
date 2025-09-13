@@ -88,9 +88,11 @@ pipeline {
                             reportDir: '.',
                             reportFiles: indexHtmlPath,
                             reportName: 'Extent Report',
-                            reportTitles: '',
+                            reportTitles: 'Test Execution Report',
                             escapeUnderscores: false,
-                            includes: '**/*'
+                            includes: '**/*',
+                            useWrapperFileDirectly: true,
+                            allowMissing: false
                         ])
                         echo "🎉 Extent Report published successfully!"
 

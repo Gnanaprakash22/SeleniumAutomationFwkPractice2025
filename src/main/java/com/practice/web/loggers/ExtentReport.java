@@ -20,6 +20,15 @@ public class ExtentReport {
         extentSparkReporter.config().setOfflineMode(true);
         extentSparkReporter.config().setReportName("Selenium Automation Test Report");
         extentSparkReporter.config().setDocumentTitle("Test Execution Report");
+        extentSparkReporter.config().setTimeStampFormat("MMM dd, yyyy HH:mm:ss");
+        extentSparkReporter.config().setTheme(com.aventstack.extentreports.reporter.configuration.Theme.STANDARD);
+        extentSparkReporter.config().setEncoding("UTF-8");
+        
+        // Add system information
+        extentReports.setSystemInfo("OS", System.getProperty("os.name"));
+        extentReports.setSystemInfo("Java Version", System.getProperty("java.version"));
+        extentReports.setSystemInfo("User", System.getProperty("user.name"));
+        extentReports.setSystemInfo("Environment", "Test");
         
         extentReports.attachReporter(extentSparkReporter);
     }
