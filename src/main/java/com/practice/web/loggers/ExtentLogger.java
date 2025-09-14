@@ -1,11 +1,13 @@
 package com.practice.web.loggers;
 
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.model.Media;
-import com.practice.web.utils.ArtifactUtils;
+import com.practice.web.driver.DriverManager;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 import java.io.File;
+import java.util.Objects;
 
 public class ExtentLogger implements ILogger{
     @Override
@@ -74,7 +76,8 @@ public class ExtentLogger implements ILogger{
     }
 
     public Media attachScreenshot(){
-        return MediaEntityBuilder.createScreenCaptureFromBase64String(ArtifactUtils.getScreenShot()).build();
+        String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) Objects.requireNonNull(DriverManager.getDriver())).getScreenshotAs(OutputType.BASE64);
+        return ExtentManager.getExtentTest().addScreenCaptureFromBase64String(base64Screenshot).getModel().getMedia().getFirst();
     }
 
     @Override
