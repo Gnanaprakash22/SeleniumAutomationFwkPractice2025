@@ -74,7 +74,7 @@ pipeline {
                     if (fileExists(indexHtmlPath)) {
                         echo "Archiving Extent Report: ${indexHtmlPath}"
                         // Archive the entire artifacts directory to include screenshots
-                        archiveArtifacts artifacts: 'target/artifacts/**', allowEmptyArchive: false
+                        archiveArtifacts artifacts: 'target/artifacts/index.html', allowEmptyArchive: false
                         publishHTML([
                                target: [
                                reportDir: 'target/artifacts',
