@@ -3,6 +3,7 @@ package com.practice.web.loggers;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.model.Media;
+import com.practice.web.driver.DriverManager;
 import com.practice.web.utils.ArtifactUtils;
 
 import java.io.File;
@@ -74,7 +75,11 @@ public class ExtentLogger implements ILogger{
     }
 
     public Media attachScreenshot(){
-        return MediaEntityBuilder.createScreenCaptureFromBase64String(ArtifactUtils.getScreenShot()).build();
+        // Save screenshot as file and use relative path for Jenkins compatibility
+        String screenshotPath = ArtifactUtils.saveScreenShot(DriverManager.getDriver(), "test_" + System.currentTimeMillis());
+        // Convert absolute path to relative path from the report location
+        String relativePath = screenshotPath.replace(System.getProperty("user.dir") + "/target/artifacts/", "./");
+        return MediaEntityBuilder.createScreenCaptureFromPath(relativePath).build();
     }
 
     @Override
