@@ -67,12 +67,6 @@ public class ExtentLogger implements ILogger{
 
     @Override
     public void attachScreenshot(String testName, File file) {
-        ExtentTest extentTest = ExtentManager.getExtentTest();
-        if(extentTest != null){
-            // Use Base64 encoding for Jenkins compatibility
-            // File parameter is ignored as Base64 works better in Jenkins HTML Publisher
-            extentTest.info(testName, attachScreenshot());
-        }
     }
 
     @Override
@@ -80,8 +74,6 @@ public class ExtentLogger implements ILogger{
     }
 
     public Media attachScreenshot(){
-        // Using Base64 encoding ensures screenshots display properly in Jenkins HTML Publisher
-        // Jenkins has security restrictions that prevent loading external image files
         return MediaEntityBuilder.createScreenCaptureFromBase64String(ArtifactUtils.getScreenShot()).build();
     }
 
