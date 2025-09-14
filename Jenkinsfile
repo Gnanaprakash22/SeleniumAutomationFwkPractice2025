@@ -73,13 +73,16 @@ pipeline {
                 if (params.REPORT_TYPE == 'EXTENT_REPORT') {
                     if (fileExists(indexHtmlPath)) {
                         echo "Archiving Extent Report: ${indexHtmlPath}"
-                        archiveArtifacts artifacts: 'target/artifacts/index.html', allowEmptyArchive: false
+                        // Archive the entire artifacts directory to include screenshots
+                        archiveArtifacts artifacts: 'target/artifacts/**', allowEmptyArchive: false
                         publishHTML([
                                target: [
                                reportDir: 'target/artifacts',
                                reportFiles: 'index.html',
                                reportName: 'Extent Report',
-                               keepAll: true
+                               keepAll: true,
+                               allowMissing: false,
+                               alwaysLinkToLastBuild: true
                                ]
                               ])
                     } else {

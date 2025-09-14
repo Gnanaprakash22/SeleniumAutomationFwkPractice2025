@@ -49,7 +49,7 @@ public class ArtifactUtils {
         return new SimpleDateFormat("yyyyMMdd_HHmmss_SSS").format(new Date());
     }
 
-    private static Path createDirectoryIfNotExists(String subDirectory){
+    private static Path createDirectoryIfNotExists(String subDirectory) {
         Path dir = Paths.get(ARTIFACTS_DIR,subDirectory);
         try {
             Files.createDirectories(dir);
